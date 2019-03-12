@@ -1,0 +1,328 @@
+@font-face {
+  font-family: "Led";
+  src: url("../fonts/Splatch.ttf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  font-family: "Led", Courier, monospace;
+}
+
+#overlay {
+  background-color: black;
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#global-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 60vh;
+}
+
+#toss {
+  text-align: center;
+  margin-left: 25px;
+  margin-right: 25px;
+  border: 1px;
+  border-style: solid;
+  box-shadow: 0;
+  color: rgb(39, 52, 172);
+  padding: 20px 40px;
+  font-size: 50px;
+  border-radius: 5px;
+  border-color: rgb(187, 118, 118);
+}
+
+#background {
+  background-color: #a6a6a6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%2303ffcd' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%231b9ec2'%3E%3Ccircle cx='769' cy='229' r='6'/%3E%3Ccircle cx='539' cy='269' r='6'/%3E%3Ccircle cx='603' cy='493' r='6'/%3E%3Ccircle cx='731' cy='737' r='6'/%3E%3Ccircle cx='520' cy='660' r='6'/%3E%3Ccircle cx='309' cy='538' r='6'/%3E%3Ccircle cx='295' cy='764' r='6'/%3E%3Ccircle cx='40' cy='599' r='6'/%3E%3Ccircle cx='102' cy='382' r='6'/%3E%3Ccircle cx='127' cy='80' r='6'/%3E%3Ccircle cx='370' cy='105' r='6'/%3E%3Ccircle cx='578' cy='42' r='6'/%3E%3Ccircle cx='237' cy='261' r='6'/%3E%3Ccircle cx='390' cy='382' r='6'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+/* .head {
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+}
+
+.button {
+  text-align: center;
+  margin-left: 25px;
+  margin-right: 25px;
+  border: 1;
+  box-shadow: 0;
+  color: #fff;
+  padding: 20px 40px;
+  font-size: 30px;
+  border-radius: 5px;
+  border-color: white;
+} */
+
+.inactive {
+  display: none;
+}
+
+.fixed {
+  position: fixed;
+  background: rgba(117, 251, 207, 0.8);
+  color: rgb(94, 94, 94);
+  top: 22%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50vh;
+  padding: 20px 40px;
+
+  border: none;
+  border-radius: 3px;
+
+  padding: 30px;
+  text-align: center;
+
+  /* Size */
+  line-height: 45px;
+  width: 70vh;
+
+  height: 55vh;
+  font-size: 200%;
+  background: #f7f7f7;
+  box-shadow: 0 6px rgba(117, 251, 207, 1);
+  color: #888;
+}
+
+.btn {
+  padding-top: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+
+  text-align: center;
+
+  line-height: 45px;
+  width: 18vh;
+
+  height: 55px;
+  font-size: 90%;
+
+  background: #acacac;
+  box-shadow: 0 6px rgba(41, 129, 153, 1);
+  color: rgb(255, 255, 255);
+  margin-top: 30px;
+}
+
+.mode {
+  padding-top: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+
+  text-align: center;
+
+  /* Size */
+  line-height: 45px;
+  width: 18vh;
+
+  height: 55px;
+  font-size: 90%;
+}
+
+.easy {
+  background: #f7f7f7;
+  box-shadow: 0 6px rgba(117, 251, 207, 1);
+  color: #888;
+}
+
+.hard {
+  background: #f7f7f7;
+  box-shadow: 0 6px rgba(41, 129, 153, 1);
+  color: #888;
+}
+
+.try {
+  background: #f7f7f7;
+  box-shadow: 0 6px rgba(0, 0, 0, 0.884);
+  color: #888;
+}
+
+#boardGame {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 60vh;
+  height: 60vh;
+  background-color: rgba(0, 143, 187, 0.884);
+  border-color: rgb(124, 124, 124);
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.grey {
+  width: 21%;
+  height: 21%;
+  background-color: rgba(192, 192, 192, 0.445);
+  border-radius: 50%;
+  border-style: solid;
+  border-color: rgba(0, 255, 149, 0.3);
+  box-shadow: 3px 5px 25px 0px rgba(71, 71, 71, 0.3) inset,
+    10px 14px 19px 0px rgba(71, 71, 71, 0.3) inset;
+  border-width: 1px;
+}
+
+.white {
+  cursor: pointer;
+  width: 21%;
+  height: 21%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19),
+    -8px -8px 15px 0 rgba(90, 90, 90, 0.5) inset,
+    -6px -4px 10px 0 rgba(143, 143, 143, 0.5) inset;
+}
+
+.whitevictory {
+  cursor: pointer;
+  width: 21%;
+  height: 21%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19),
+    -8px -8px 15px 0 rgba(90, 90, 90, 0.5) inset,
+    -6px -4px 10px 0 rgba(143, 143, 143, 0.5) inset;
+  animation: victoire-blanche 1s infinite;
+}
+
+.blackvictory {
+  cursor: pointer;
+  width: 21%;
+  height: 21%;
+  background-color: rgb(7, 0, 32);
+  border-radius: 50%;
+  box-shadow: 8px 8px 15px 0 rgba(90, 90, 90, 0.4) inset,
+    6px 4px 10px 0 rgba(99, 99, 99, 0.4) inset;
+  animation: victoire-noire 1s infinite;
+}
+
+.black {
+  cursor: pointer;
+  width: 21%;
+  height: 21%;
+  background-color: rgb(7, 0, 32);
+  border-radius: 50%;
+  box-shadow: 8px 8px 15px 0 rgba(90, 90, 90, 0.4) inset,
+    6px 4px 10px 0 rgba(99, 99, 99, 0.4) inset;
+}
+
+.white.start {
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19),
+    -8px -8px 15px 0 rgba(90, 90, 90, 0.5) inset,
+    -6px -4px 10px 0 rgba(143, 143, 143, 0.5) inset,
+    0 0 35px 0 rgb(117, 251, 207);
+}
+
+.black.start {
+  width: 21%;
+  height: 21%;
+  background-color: rgb(7, 0, 32);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19),
+    6px 6px 12px 0 rgba(148, 148, 148, 0.19) inset,
+    4px 4px 12px 0 rgba(156, 156, 156, 0.19) inset,
+    0 0 35px 0 rgba(117, 251, 207);
+}
+
+.available {
+  cursor: pointer;
+  width: 21%;
+  height: 21%;
+  background-color: rgba(182, 182, 182, 0.301);
+  border-radius: 50%;
+  border-style: solid;
+  border-color: rgba(0, 255, 149, 0.315);
+  box-shadow: 3px 5px 25px 0px rgba(148, 148, 148, 0.3) inset,
+    10px 14px 19px 0px rgba(59, 59, 59, 0.3) inset,
+    3px 5px 25px 0px rgba(38, 0, 255, 0.3) inset,
+    10px 14px 19px 0px rgba(38, 0, 255, 0.3) inset;
+  border-width: 1px;
+  animation: clignote 1s infinite;
+}
+
+@-webkit-keyframes clignote {
+  0% {
+    box-shadow: 3px 5px 25px 0px rgba(148, 148, 148, 0.3) inset,
+      10px 14px 19px 0px rgba(59, 59, 59, 0.3) inset,
+      0px 0px 15px 0px rgba(66, 255, 192, 0.356) inset;
+  }
+
+  50% {
+    box-shadow: 3px 5px 25px 0px rgba(148, 148, 148, 0.3) inset,
+      10px 14px 19px 0px rgba(59, 59, 59, 0.3) inset,
+      0px 0px 40px 0px rgba(66, 255, 192, 0.712) inset;
+  }
+
+  100% {
+    box-shadow: 3px 5px 25px 0px rgba(148, 148, 148, 0.3) inset,
+      10px 14px 19px 0px rgba(59, 59, 59, 0.3) inset,
+      0px 0px 15px 0px rgba(66, 255, 192, 0.2) inset;
+  }
+}
+
+@-webkit-keyframes victoire-blanche {
+  0% {
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2),
+      0 6px 30px 0 rgba(0, 0, 0, 0.19),
+      -8px -8px 15px 0 rgba(90, 90, 90, 0.5) inset,
+      -6px -4px 10px 0 rgba(143, 143, 143, 0.5) inset;
+  }
+
+  50% {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2),
+      0 6px 30px 0 rgba(0, 0, 0, 0.19),
+      -8px -8px 15px 0 rgba(90, 90, 90, 0.5) inset,
+      -6px -4px 10px 0 rgba(143, 143, 143, 0.5) inset;
+  }
+
+  100% {
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2),
+      0 6px 30px 0 rgba(0, 0, 0, 0.19),
+      -8px -8px 15px 0 rgba(90, 90, 90, 0.5) inset,
+      -6px -4px 10px 0 rgba(143, 143, 143, 0.5) inset;
+  }
+}
+
+@-webkit-keyframes victoire-noire {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 8px 8px 15px 0 rgba(90, 90, 90, 0.4) inset,
+      6px 4px 10px 0 rgba(99, 99, 99, 0.4) inset;
+  }
+
+  50% {
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2),
+      8px 8px 15px 0 rgba(90, 90, 90, 0.4) inset,
+      6px 4px 10px 0 rgba(99, 99, 99, 0.4) inset;
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 8px 8px 15px 0 rgba(90, 90, 90, 0.4) inset,
+      6px 4px 10px 0 rgba(99, 99, 99, 0.4) inset;
+  }
+}
