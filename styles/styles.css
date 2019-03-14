@@ -74,30 +74,35 @@ body {
   display: none;
 }
 
+#gotit {
+  margin-top: 4vh;
+  margin-left: 58vw;
+}
 .fixed {
   position: fixed;
   background: rgba(117, 251, 207, 0.8);
   color: rgb(94, 94, 94);
-  top: 22%;
+  top: 15%;
+
   margin-left: auto;
   margin-right: auto;
-  width: 50vh;
   padding: 20px 40px;
-
   border: none;
   border-radius: 3px;
-
   padding: 30px;
   text-align: center;
-
-  /* Size */
   line-height: 45px;
-  width: 70vh;
+  width: 70vw;
 
-  height: 55vh;
+  height: 68vh;
   font-size: 200%;
   background: #f7f7f7;
   box-shadow: 0 6px rgba(117, 251, 207, 1);
+  color: #888;
+}
+.button:hover {
+  background: #e6e6e6;
+  box-shadow: 0 5px rgb(255, 112, 112);
   color: #888;
 }
 
@@ -153,6 +158,11 @@ body {
   background: #f7f7f7;
   box-shadow: 0 6px rgba(0, 0, 0, 0.884);
   color: #888;
+}
+
+.selected {
+  background: rgb(102, 102, 102);
+  color: rgb(219, 219, 219);
 }
 
 #boardGame {
@@ -244,7 +254,7 @@ body {
     0 0 35px 0 rgba(117, 251, 207);
 }
 
-.available {
+.availableHelp {
   cursor: pointer;
   width: 21%;
   height: 21%;

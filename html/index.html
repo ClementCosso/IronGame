@@ -12,22 +12,29 @@
       <div class="text">
         Un jeu de Clément Cosso <br />et Wesley Snipes<br />
         <br />
-        Chaque joueur déPlace ses 4 pionS en ligne, colonne ou diagonale,
-        jusqu'à ce qu'un joUeur parVienne à occuPer une ligne, une colonNe, les
-        4 coins du pLateau ou un caRré de 2x2 pions.
+        Chaque joueur déplace ses 4 pions en ligne, colonne ou diagonale,
+        jusqu'à ce qu'un joueur parvienne à occuper une ligne, une colonne, les
+        4 coins du plateau ou un carré de 2x2 pions. <br /><br />
+        En mode facile, le plateau indique quelles sont les positions possibles.
+        <br />En mode "please don't", de temps en temps...on sait pas trop quand
+        ni pourquoi...votre pion peut vous trahir.
       </div>
-      <div class="btn">Got it</div>
+      <div id="gotit" class="button btn">Got it</div>
     </div>
 
     <div id="global-board">
-      <div id="start-game" class="mode easy">TOSS & START</div>
-      <div id="resume" class="mode hard">RESUME</div>
-      <div id="rule" class="mode try">RULES</div>
-      <div id="boardGame"></div>
-      <!-- 
-      <div class="mode easy">EASY MODE</div>
-      <div class="mode hard">NORMAL MODE</div>
-      <div class="mode try">PLEASE DON'T</div> -->
+      <div id="start-game" class="inactive button mode easy">TOSS & START</div>
+      <div id="resume" class="inactive button mode hard">RESUME</div>
+      <div id="rule" class="inactive button mode try">RULES</div>
+      <div id="boardGame" class="inactive "></div>
+
+      <div id="easy-mode" class="inactive button mode easy">EASY MODE</div>
+      <div id="normal-mode" class="inactive button mode hard selected">
+        NORMAL MODE
+      </div>
+      <div id="dont-try-mode" class="inactive button mode try">
+        PLEASE DON'T
+      </div>
     </div>
 
     <script

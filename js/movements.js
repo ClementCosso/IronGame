@@ -56,6 +56,18 @@ function reload() {
   });
 }
 
+function gotit() {
+  $("#gotit").click(function() {
+    $("#start-game").removeClass("inactive");
+    $("#resume").removeClass("inactive");
+    $("#rule").removeClass("inactive");
+    $("#boardGame").removeClass("inactive");
+    $("#easy-mode").removeClass("inactive");
+    $("#normal-mode").removeClass("inactive");
+    $("#dont-try-mode").removeClass("inactive");
+  });
+}
+
 function rules() {
   $("#rule").click(function() {
     $("#boardRule").toggleClass("inactive");
@@ -152,6 +164,7 @@ function drawBoard() {
 
   setClickHandlers();
   setUpdateHandlers();
+  defineMode();
 }
 
 function setClickHandlers() {
@@ -165,9 +178,17 @@ function setClickHandlers() {
       definePionToPlay(currentPion);
       defineAllPossiblePositions();
 
-      availablePositions.forEach(function(element) {
-        $("#" + element).addClass("available");
-      });
+      if (mode < 1) {
+        availablePositions.forEach(function(element) {
+          $("#" + element).addClass("available");
+          $("#" + element).addClass("availableHelp");
+        });
+      } else {
+        availablePositions.forEach(function(element) {
+          $("#" + element).addClass("available");
+        });
+      }
+
       setUpdateHandlers();
     }
   });
@@ -187,33 +208,63 @@ function setUpdateHandlers() {
       x: $(this).data("x"),
       y: $(this).data("y")
     };
-
-    if (destination.x === origin.x && destination.y > origin.y) {
-      moveRight();
-    } else if (destination.x === origin.x && destination.y < origin.y) {
-      moveLeft();
-    } else if (destination.x > origin.x && destination.y === origin.y) {
-      moveDown();
-    } else if (destination.x < origin.x && destination.y === origin.y) {
-      moveUp();
-    } else if (destination.x < origin.x && destination.y < origin.y) {
-      moveUpLeft();
-    } else if (destination.x > origin.x && destination.y < origin.y) {
-      moveDownLeft();
-    } else if (destination.x > origin.x && destination.y > origin.y) {
-      moveDownRight();
-    } else if (destination.x < origin.x && destination.y > origin.y) {
-      moveUpRight();
+    if (mode <= 1) {
+      if (destination.x === origin.x && destination.y > origin.y) {
+        moveRight();
+      } else if (destination.x === origin.x && destination.y < origin.y) {
+        moveLeft();
+      } else if (destination.x > origin.x && destination.y === origin.y) {
+        moveDown();
+      } else if (destination.x < origin.x && destination.y === origin.y) {
+        moveUp();
+      } else if (destination.x < origin.x && destination.y < origin.y) {
+        moveUpLeft();
+      } else if (destination.x > origin.x && destination.y < origin.y) {
+        moveDownLeft();
+      } else if (destination.x > origin.x && destination.y > origin.y) {
+        moveDownRight();
+      } else if (destination.x < origin.x && destination.y > origin.y) {
+        moveUpRight();
+      }
+    } else if (mode === 2) {
+      if (totalMoves % modulo === 0 && totalMoves > 1) {
+        return availableFunctions[
+          Math.floor(Math.random() * availableFunctions.length)
+        ]();
+      } else {
+        if (destination.x === origin.x && destination.y > origin.y) {
+          moveRight();
+        } else if (destination.x === origin.x && destination.y < origin.y) {
+          moveLeft();
+        } else if (destination.x > origin.x && destination.y === origin.y) {
+          moveDown();
+        } else if (destination.x < origin.x && destination.y === origin.y) {
+          moveUp();
+        } else if (destination.x < origin.x && destination.y < origin.y) {
+          moveUpLeft();
+        } else if (destination.x > origin.x && destination.y < origin.y) {
+          moveDownLeft();
+        } else if (destination.x > origin.x && destination.y > origin.y) {
+          moveDownRight();
+        } else if (destination.x < origin.x && destination.y > origin.y) {
+          moveUpRight();
+        }
+      }
     }
   });
 }
+
+let prepareModulo = [3, 5, 7];
+let modulo = prepareModulo[Math.floor(Math.random() * 3)];
 
 $(document).ready(function() {
   drawBoard();
   if (totalMoves < 1) {
     startGame();
   }
+  gotit();
   rules();
+
   reload();
 });
 
@@ -711,7 +762,6 @@ function checkTopRightDiagVictoryBlack() {
 
 function checkVerticalWhite() {
   for (i = 0; i <= 3; i++) {
-    console.log("check boucle blanche");
     var verticalLine = [
       boardGame[0][i],
       boardGame[1][i],
@@ -733,9 +783,7 @@ function checkVerticalWhite() {
 }
 
 function checkVerticalBlack() {
-  console.log("check");
   for (i = 0; i <= 3; i++) {
-    console.log("check boucle");
     var verticalLine = [
       boardGame[0][i],
       boardGame[1][i],
@@ -743,7 +791,7 @@ function checkVerticalBlack() {
       boardGame[3][i]
     ];
     var sortedLine = verticalLine.sort();
-    console.log(sortedLine);
+
     if (
       sortedLine[0] === "black1" &&
       sortedLine[1] === "black2" &&
@@ -875,8 +923,43 @@ function checkBlackVictory() {
     return true;
 }
 
+let mode = 1;
+
+function defineEasyMode() {
+  $("#easy-mode").click(function() {
+    $(".selected").removeClass("selected");
+    $(this).addClass("selected");
+
+    mode = 0;
+  });
+}
+function defineNormalMode() {
+  $("#normal-mode").click(function() {
+    $(".availableHelp").removeClass("availableHelp");
+    $(".selected").removeClass("selected");
+    $(this).addClass("selected");
+    mode = 1;
+  });
+}
+
+function defineHardMode() {
+  $("#dont-try-mode").click(function() {
+    $(".selected").removeClass("selected");
+    $(this).addClass("selected");
+    mode = 2;
+  });
+}
+
+function defineMode() {
+  defineEasyMode();
+  defineNormalMode();
+  defineHardMode();
+}
+
 function defineAllPossiblePositions() {
   availablePositions = [];
+  availableFunctions = [];
+
   defineRight();
   defineLeft();
   defineDown();
@@ -904,6 +987,7 @@ function defineRight() {
 
   if (z > y) {
     availablePositions.push("" + x + "-" + z + "");
+    availableFunctions.push(moveRight);
   }
 }
 
@@ -924,6 +1008,7 @@ function defineLeft() {
 
   if (z < y) {
     availablePositions.push("" + x + "-" + z + "");
+    availableFunctions.push(moveLeft);
   }
 }
 
@@ -944,6 +1029,7 @@ function defineDown() {
 
   if (z > x) {
     availablePositions.push("" + z + "-" + y + "");
+    availableFunctions.push(moveDown);
   }
 }
 
@@ -964,6 +1050,7 @@ function defineUp() {
 
   if (z < x) {
     availablePositions.push("" + z + "-" + y + "");
+    availableFunctions.push(moveUp);
   }
 }
 
@@ -986,6 +1073,7 @@ function defineUpRight() {
 
   if (z < x) {
     availablePositions.push("" + z + "-" + a + "");
+    availableFunctions.push(moveUpRight);
   }
 }
 
@@ -1008,6 +1096,7 @@ function defineUpLeft() {
 
   if (z < x) {
     availablePositions.push("" + z + "-" + a + "");
+    availableFunctions.push(moveUpLeft);
   }
 }
 
@@ -1030,6 +1119,7 @@ function defineDownLeft() {
 
   if (z > x) {
     availablePositions.push("" + z + "-" + a + "");
+    availableFunctions.push(moveDownLeft);
   }
 }
 
@@ -1052,5 +1142,6 @@ function defineDownRight() {
 
   if (z > x) {
     availablePositions.push("" + z + "-" + a + "");
+    availableFunctions.push(moveDownRight);
   }
 }
